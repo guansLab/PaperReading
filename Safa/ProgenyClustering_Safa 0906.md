@@ -40,24 +40,15 @@ In contrast to traditional sampling methods that operate on the entire dataset f
 
 
 
-
-
-  
-
 - Something you don’t understand
 
-       The core steps in Progeny Clustering of the algorithm were not quite clear to me when I compare the steps with the provided figure (1) that illustrate the core steps in Progeny Clustering. The core steps are as following, the used dataset consists of 20 samples (denoted as X) in a two-dimensional space (denoted as F1 and F2). The scheme displays the workﬂow of generating a stability score for clustering this dataset into two clusters. Five progenies (denoted as Y) were generated for each cluster. The co-occurrence matrix Q represents one of the clustering results of the mixed progenies, in which matrix entries are 1 if two progenies are in the same cluster and 0 otherwise. In both co-occurrence matrices Q and P, the true classification region containing progenies from the same initial cluster is colored pink and the false classification region containing progenies from diﬀerent initial clusters is colored light blue.  If the clustering quality is high, we would expect more 1s (Q) or higher probabilities (P) in the true classification region and more 0s (Q) or lower probabilities (P) in the false classification region.  
-
-Figure (1): An illustration of the core steps in Progeny Clustering
-
-
+The core steps in Progeny Clustering of the algorithm were not quite clear to me when I compare the steps with the provided figure that illustrate the core steps in Progeny Clustering. The core steps are as following, the used dataset consists of 20 samples (denoted as X) in a two-dimensional space (denoted as F1 and F2). The scheme displays the workﬂow of generating a stability score for clustering this dataset into two clusters. Five progenies (denoted as Y) were generated for each cluster. The co-occurrence matrix Q represents one of the clustering results of the mixed progenies, in which matrix entries are 1 if two progenies are in the same cluster and 0 otherwise. In both co-occurrence matrices Q and P, the true classification region containing progenies from the same initial cluster is colored pink and the false classification region containing progenies from diﬀerent initial clusters is colored light blue.  If the clustering quality is high, we would expect more 1s (Q) or higher probabilities (P) in the true classification region and more 0s (Q) or lower probabilities (P) in the false classification region.  
 
 
 
 - Your view on the research domain/topic/approach/data/solution  (positive or negative)
-
-   Based on the provided results Progeny clustering method was shown successful when applied to two simulated datasets and robust with small sampling sizes and moderate level of noise. Demonstrated its application potential to biomedical research by applying it to two standard biological datasets (Iris dataset and Rat CNS dataset). Progeny clustering method is the only method that successfully identified the clinically meaningful partitions of patient groups in the AML RPPA dataset  
-   In particular, this method outperformed some of the most popular evaluation methods in the high-dimensional toy dataset and in the biological datasets. The algorithm was shown to perform at a completely diﬀerent and faster scale compared to other stability-based methods.
+Based on the provided results Progeny clustering method was shown successful when applied to two simulated datasets and robust with small sampling sizes and moderate level of noise. Demonstrated its application potential to biomedical research by applying it to two standard biological datasets (Iris dataset and Rat CNS dataset). Progeny clustering method is the only method that successfully identified the clinically meaningful partitions of patient groups in the AML RPPA dataset  
+In particular, this method outperformed some of the most popular evaluation methods in the high-dimensional toy dataset and in the biological datasets. The algorithm was shown to perform at a completely diﬀerent and faster scale compared to other stability-based methods.
 
 
 
