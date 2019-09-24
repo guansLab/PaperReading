@@ -1,27 +1,33 @@
-Title: Projecting Performance Data Over Simulation Geometry Using SOSflow and ALPINE
+Title: Scientific Data Analysis and Visualization with Python,VTK, and ParaView
 
-Publication:ESPT 2017, ESPT 2018, VPA 2017, VPA 2018. Lecture Notes in Computer Science, vol 11027. Springer, Cham
-Author：Chad Wood(University of Oregon),Matthew Larsen(Lawrence Livermore National Laboratory),Alfredo Gimenez(Lawrence Livermore National Laboratory),Kevin Huck(Lawrence Livermore National Laboratory),Cyrus Harrison(Lawrence Livermore National Laboratory),Todd Gamblin(Lawrence Livermore National Laboratory),Allen Malony(University of Oregon)
+Publication:PROC. OF THE 14th PYTHON IN SCIENCE CONF. (SCIPY 2015) 
+
+Author：Cory Quammen
 
 Research Background:
-Projecting application and performance data onto the scientific domain allows for the behavior of a code to be perceived in terms of
-the organization of the work it is doing, rather than the organizationof its source code. 
+VTK and ParaView are leading software packages for data analysis
+and visualization. Since their early years, Python has played an important role
+in each package. In many use cases, VTK and ParaView serve as modules
+used by Python applications. In other use cases, Python modules are used to
+generate visualization components within VTK. 
 
 Problem to Solve:
-The overhead of manually instrumenting large complex codes to extract meaningful geometries for use in performance analysis,combined with the limited value of offline correlation of a fixed number of metrics, naturally limited the usage of scientific domain projections for gaining HPC workflow performance insights.
+Provide an overview of Python integration in VTK and ParaView and give some concrete
+examples of usage. 
 
 Key Design and Algorithm Proposed:
-Use SOSflow and ALPINE to overcome many prior limitations to projecting performance into the scientific domain.
+1, Introduces basic VTK usage, describe the relationship between VTK and Python, and describe interfaces between the two
+2, Ｄetailｓ the relationship between ParaView and Python.
 
-Major Contribution:
-1,Eliminate the need to manually capture geometry for performance data projections of ALPINE-enabled workflows.
-2,Provide online observation of performance data projected over evolving geometries and metrics.
-3,Facilitate interactive selection of one or many performance metrics and rendering parameters, adding dynamism to projections.
-4,Enable simultaneous online projections from a common data source.
-5,In situ performance visualization architecture supporting both current and future-scale systems
+Conclusions
+Python has been integrated into VTK and ParaView for many years. The integration continues to mature and expand as Python
+is used in an increasing number of ways in both software packages. As Python continues to grow in popularity among the
+scientific community, so too does the need for providing easyto-use Pythonic interfaces to scientific visualization tools. As
+demonstrated in this paper, VTK and ParaView are well-positioned to continue adapting to the future needs of scientific Python
+programmers.
 
 Major limitation:
-1,Workflows that use the ALPINE framework but have complex irregular meshes, feature overlapping "halo regions".
-2,Operate over non-continuous regions of space within a single process, may require additional effort to extract geometry from, depending on the organization of spatial descriptions they employ.
+VTK and ParaView currently just support Python 2.6 and 2.7, so support for Python 3 is targeted for sometime in 2016.
 
 Your view on the research domain/topic/approach/data/solution (positive or negative)
+This is a good paper to quickly know the relationship along python, VTK and Paraview. 
