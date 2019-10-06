@@ -1,0 +1,41 @@
+### Title: SUPER-RESOLUTION WITH DEEP CONVOLUTIONAL SUFFICIENT STATISTICS
+
+### Publication: ICLR
+
+### Author：Joan Bruna et al.
+
+
+### Paper Review
+- Research Background
+
+  Data-driven approaches can lead to convincing results regarding inverse problems, but there are optimization problems because of non-explicit form of estimator.
+
+- Problem to Solve
+
+  Solve inverse problems in a non-linear representation space and thus provide a valid approach on image super-resolution problem.
+
+- Key Design and Algorithm Proposed
+
+  1. Use a conditional model defined by a Gibbs energy form and consider the corresponding Gibbs distribution.
+  2. Conditional model contains a discriminative model and a predictive model.
+  3. Use CNN in the proposed conditional model.
+
+- Major Contribution
+
+  1. Propose a method to solve inverse problem.
+  2. Propose an algorithm to fine-tune the generative model.
+  3. Illustrate a valid approach on image super-resolution problem.
+
+- Major limitation
+
+  When using on very fine textures, their method can result in some unnatural textures.
+
+- Something you don’t understand
+
+  I don't know what is the warping field $\tau$.
+
+- Your view on the research domain/topic/approach/data/solution  (positive or negative)
+
+  1. I think generating high-resolution images from low-resolution images is promising.
+  2. I think their combination of Gibbs equation and GAN is innovative.
+  3. They use a common dataset ImageNet to experiment their method and algorithm. 
