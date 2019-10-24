@@ -41,8 +41,7 @@ processing and visualization library that enables in situ analysis and visualiza
 involved in instrumenting a simulation code with Catalyst
 support along with some of our successes.
 
-* Major limitation
-
-* Something you don’t understand
-
-* Your view on the research domain/topic/approach/data/solution (positive or negative)
+* Something you don’t understand:  
+I didn't really understand how VTK work in the Paraview.
+* Your view on the research domain/topic/approach/data/solution (positive or negative):  
+I think the Paraview Catalyst framework is a good idea to solve the limited storage and bandwidth　problems in simulate the large sizes data.
