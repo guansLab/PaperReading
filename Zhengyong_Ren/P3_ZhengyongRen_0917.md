@@ -18,7 +18,7 @@ Jeffrey Mauldin,
 Sandia National Laboratories.
 ## paper review:
 * Main picture:  
-![ParaviewCatalyst](https://github.com/guansLab/PaperReading/blob/master/Zhengyong_Ren/Screenshot%20from%202019-10-24%2008-44-53.png)
+![ParaviewCatalyst](https://github.com/guansLab/PaperReading/blob/master/Zhengyong_Ren/Screenshot%20from%202019-10-24%2011-49-03.png)
 * Research Background:  
 Computer simulations are growing in sophistication and producing results of ever greater fidelity. This trend has been
 enabled by advances in numerical methods and increasing
