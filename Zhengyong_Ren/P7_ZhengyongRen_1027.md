@@ -6,23 +6,23 @@ SC '14: Proceedings of the International Conference for High Performance Computi
 James Ahrens
 Los Alamos National Laboratory
 Los Alamos, NM 87545
-Email: ahrens@lanl.gov
+Email: ahrens@lanl.gov  
 John Patchett
 Los Alamos National Laboratory
 Los Alamos, NM 87545
-Email: patchett@lanl.gov
+Email: patchett@lanl.gov  
 Sebastien Jourdain ´
 Kitware Inc
 Santa Fe, NM 87505
-Email: sebastien.jourdain@kitware.com
+Email: sebastien.jourdain@kitware.com  
 David H. Rogers
 Los Alamos National Laboratory
 Los Alamos, NM 87545
-Email: dhr@lanl.gov
+Email: dhr@lanl.gov  
 Patrick O’Leary
 Kitware Inc
 Santa Fe, NM 87505
-Email: patrick.oleary@kitware.com
+Email: patrick.oleary@kitware.com  
 Mark Petersen
 Los Alamos National Laboratory
 Los Alamos, NM 87545
