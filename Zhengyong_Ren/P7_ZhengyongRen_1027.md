@@ -45,8 +45,8 @@ The fundamental extreme scale visualization and analysis challenge is there is t
  An Image-based Approach and Database
 
 * Major Contribution:  
-1,Interactive Exploration Image Database.
-2,Metadata Searching.
+1,Interactive Exploration Image Database.  
+2,Metadata Searching.  
 3,Creation of New Visualizations and Content Querying.
 
 * Something you don’t understand:  
