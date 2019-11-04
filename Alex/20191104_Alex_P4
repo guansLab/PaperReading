@@ -1,0 +1,49 @@
+
+
+### Title: Automated Test Generation to Detect Individual Discrimination in AI Models
+
+### Publication: arXiv:1809.03260
+arXiv is an online digital archive for electronic preprints of scientific papers.
+
+### Author：IBM Research AI, India. including Aniya Agarwal, Seema Nagar, Kuntal Dey et al.
+IBM Research is one of the world’s largest and most influential corporate research labs
+
+Aniya Aggarwal is currently working as a Software Engineer in the Department of India Research Laboratory, IBM Research, India. His research interests includes data streams. He is serving as an editorial member and reviewer of several international reputed journals. 
+
+Seema Nagar is a software engineer at IBM India Research, Bangalore. She completed her B.Tech. from IIT,Guwahati in 2007. She joined IBM just after completing her B.Tech. She has since worked on in the field of social network analysis and social media analysis. She also completed her M.Tech from IIT, Delhi in 2011, while working at IBM.
+
+Kuntal Dey is a Senior Software Engineer (Research) in IBM Research India, and is currently working with the Artificial Intelligence Engineering division in IBM Research India. Kuntal has been a part of IBM Research India back since 2007. He has worked across multiple projects in IBM Research India.
+
+### Paper Review
+- Research Background
+  1. This decade marks the resurgence of Artificial Intelligence where AI Models have started taking crucial decisions in a lot of systems - from hiring decisions, approving loans, etc. to design driver-less cars. Therefore, dependability on AI models is of utmost importance to ensure wide acceptance of the AI systems. One of the key aspects of the dependable AI system is to ensure that all its decisions are fair and not biased towards any individual.
+  2. Measuring individual discrimination requires an exhaustive testing, which is infeasible for a nontrivial system.
+
+- Problem to Solve
+  1. How to detecte whether a model discriminates between two individuals having the values of all their attributes other than the protected ones exactly the same and if such a model yields different decisions for such two individuals?
+  2. How to evaluate and find that for which all values of non-protected and protected attributes, the model demonstrates an individual discrimination behavior?
+  3. How to generate test inputs automatically, which is geared towards finding individual discrimination?
+
+- Key Design and Algorithm Proposed
+  1. Key Design
+    - building a black box and scalable solution , which can be applied efficiently on varied models.
+    - using a dynamic symbolic evaluation to generate test inputs which can potentially lead to uncovering individual discrimination.
+  2. Algorighms
+   - Generalized Symbolic Execution: The algorithm for symbolic execution such that it can be generalized from programs to models.First, instead of starting from a random input, the algorithm finds one or more seed inputs to start with. Second, we presented a depth-first strategy for selecting a branch to toggle. And such a decision is taken after each path is executed
+   - Test Case Generation for Uninterpretable Model: Our algorithm generates the decision tree instead of the linear classifier as in LIME. To increase the diversity in search, we cluster the training data and take seed inputs in round-robin fashion from each cluster. We use a ranking scheme based on the confidence of predicates in the decision tree to select which test input to execute next.
+    
+- Major Contribution
+  1. presented a test case generation algorithm for checking individual discrimination in AI models. 
+  2. combined the idea of symbolic evaluation which systematically generates test inputs and local explanation which approximates the path in the model using linear models. 
+  
+- Major limitation
+  1. The overall effectiveness of the algorithm this paper proposed to solve problems of finding individual discrimination is still need to be improved.
+  2. The approch should be evaluated by appling to other domains, such as images and articles.
+  
+
+- Something you don’t understand
+  1. The principle of 'local explainer' technique which used as a part of the algorithm.
+  
+- Your view on the research domain/topic/approach/data/solution  (positive or negative)
+  1. I hold a positive attitude to this domain, also I think the approach this paper proposed is useful and meaningful.
+
