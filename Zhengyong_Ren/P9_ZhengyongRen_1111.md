@@ -18,15 +18,15 @@ Setting up optimal lighting could be a nontrivial task for average users. There 
 The resulting system takes into account view and transfer-function dependent content of the volume data to automatically generate an optimized three-point lighting environment.
  
 * Major Contribution:  
-1, fully exploits the back light which is not used by previous volume visualization systems. 
+1, fully exploits the back light which is not used by previous volume visualization systems.   
 2, Including global shadow and multiple scattering, our lighting system can effectively enhance the depth and shape
-perception of volumetric features of interest. 
+perception of volumetric features of interest.   
 3, Propose an automatic tone mapping operator which recovers visual details
 from overexposed areas while maintaining sufficient contrast in the dark areas. 
-* limited
+* limited  
 1,it may not be applied to view-independent cases because the result is
-optimized for the camera view. 
-2,it is not applicable in cases where more than three light sources must be used. 
+optimized for the camera view.   
+2,it is not applicable in cases where more than three light sources must be used.   
 3,method may not give optimal results for extremely complex datasets where point light sources are needed to illuminate internal structures that directional lights cannot reach. It does not take depth information
 into account.
 * Something you don’t understand:  
