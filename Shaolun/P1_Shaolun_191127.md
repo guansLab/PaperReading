@@ -30,15 +30,13 @@ Although the speed of volume rendering has significantly increased in the past s
 * **Rendering Step 1**：This rendering algorithm comprises two steps. The first step builds a hierarchical volume structure called *octree*,which is a multi-resolution representation for a volume. 
 
 * **Rendering Step 2**: 
-The second step uses octrees and volume data to render images.
-Traversing an octree enables a volume to be rendered in different
-resolutions. The higher resolution, the better image quality while
-the slower rendering speed.
+The second step uses octrees and volume data to render images. Traversing an octree enables a volume to be rendered in different resolutions. The higher resolution, the better image quality while the slower rendering speed.
 
 The whole middleware is based on these two rendering steps based on a Java vitual machine, which is called *liboctree.so* and *librendering.so* respectively.
 
 #### Major Contribution
 GATES (Grid-based AdapTive Execution on Streams) is a middleware that supports the flexible and adaptive analysis of distributed data streams. This approach describes 1)how to use the **GATES**(*Grid-based AdapTive Execution on Streams*) middleware to implement a volume rendering application. 2) The algorithm of this middleware addressed the rendering where volume data arrives in continuous streams (*Because visualization operations are compute-intensive, supporting real-time rendering can be very challenging*) 3)It can enable an application to achieve the best accuracy, while maintaining the real-time constraint.
+
 This paper addresses several challenges in developing a real-time implementation of **volume rendering** for a **distributed environment**, and show how to use **grid-based** **self-adapting** middleware, and how to expose **adaptation parameters**[^footnote].
 [^footnote]: The middleware allows the application developers to expose one or more adaptation parameters. An adaptation parameter is a tunable parameter whose value can be modified to increase the processing rate, and in most cases, reduce the accuracy of the processing.
 
