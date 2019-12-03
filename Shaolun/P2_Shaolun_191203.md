@@ -1,1 +1,3 @@
-$\color{red}{红色字}$ of La VALSE are derived from the needs of two target user groups, resilience researchers and system administrators:
+- ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `#f03c15`
+- ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `#c5f015`
+- ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) `#1589F0`
