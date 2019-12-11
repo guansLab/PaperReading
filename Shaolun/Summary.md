@@ -39,6 +39,16 @@
     * online query engine
     * voltage 电压
     * elusive
+  * 2019年12月11日22:28:27
+    * it stands to reason that ... 可以说。。
+    * data wrangle
+    * data crawler 爬数据
+    * elicitation启发
+    * leverage 。
+    * terminology 术语
+    * taxonomy 分类
+    * retrieve 找回
+    * 
 
 
 ## 架构Mix
@@ -50,4 +60,7 @@
   * from Lexing Xie---Influence Flowers of Academic Entities
     * web user interface---js+bs+d3.js
     * query engine---Elasticsearch
+  * from Alex Bigelow---Origraph: Interactive Network Wranglings
+    * web user interface---d3js golden-layout+codemirror(web代码编辑器)+downloadjs(Client-side file downloading using JS and HTML5)+handsontable(web数据表)
+    * backend---none
 
