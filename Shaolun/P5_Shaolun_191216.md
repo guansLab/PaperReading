@@ -44,4 +44,4 @@ For visualization design, Zhao et al. deduced that a tabular visualization summa
 * 设计做的很到位，每一个元素都运用的恰到好处
 * 这是一篇可以以后拿来经常借鉴的paper。学习他的写作技巧
 
-*The link of this article is [here]()*
+*The link of this article is [here](https://github.com/guansLab/PaperReading/blob/master/Shaolun/P5_Shaolun_191216.md)*
