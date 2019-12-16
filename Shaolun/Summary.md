@@ -96,7 +96,7 @@
 * from Alex Bigelow---Origraph: Interactive Network Wranglings
   * web user interface---d3js golden-layout+codemirror(web代码编辑器)+downloadjs(Client-side file downloading using JS and HTML5)+handsontable(web数据表)
   * backend---none
-* from Jieqiong Zhao--MetricsVis: A Visual Analytics System for Evaluating Employee
+* from Jieqiong Zhao--MetricsVis: A Visual Analytics System for Evaluating Employee(这个工作适合细读一下)
   * d3+react+redux
   * not mentioned about back-server
 
