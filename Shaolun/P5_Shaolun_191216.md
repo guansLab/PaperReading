@@ -6,6 +6,7 @@ Author: Shaolun
 
 Title: *MetricsVis: A Visual Analytics System for Evaluating Employee Performance in Public Safety Agencies*
 ---
+![Screenshot](https://raw.githubusercontent.com/shaolun-Ryan/Coding-Workstation/master/static/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20191216210611.png)
 
 Publication: *IEEE VIS 2019(VAST)*
 ---
