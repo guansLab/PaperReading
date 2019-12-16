@@ -17,18 +17,16 @@ Author: *Author*
   
 Paper Review
 ---
-#### Research Background
+#### ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Research Background
 
-#### Problem to Solve
+#### ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Problem to Solve
 
-#### Key Design and Algorithm Proposed
+#### ![#1589F0](https://placehold.it/15/1589F0/000000?text=+) Key Design and Algorithm Proposed
 
-#### Major Contribution
+#### ![#f03c15](https://placehold.it/15/FF2A00/000000?text=+) Major Contribution
 
-#### Major limitation
+#### ![#f03c15](https://placehold.it/15/9C9B46/000000?text=+) Major limitation
 
-#### Something you don’t understand
-
-#### Your view about the research
+#### ![#f03c15](https://placehold.it/15/e4a0e7/000000?text=+) Your view about the research
 
 *The link of this article is [here](link)*
