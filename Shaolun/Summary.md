@@ -82,6 +82,19 @@
   * stereotypical biases 刻板印象
   * a visual analytics system 
   * composed of multiple... 由多种组成
+* 2019年12月23日22点38分
+  * student across different disciplines
+  * impose chanllenges on ...
+  * have a certain level of ...
+  * pose a challenge
+  * these challenges have been echoed by ...
+  * Vis is undergoing rapid evolution
+  * the challenge was spotted throughout the process
+  * student kickstart thier projects
+  * In the meantime
+  * sth to cope with ...应对
+  * sufficient programming training
+  * save sb the trouble
 
 
 ## 架构Mix
@@ -96,7 +109,7 @@
 * from Alex Bigelow---Origraph: Interactive Network Wranglings
   * web user interface---d3js golden-layout+codemirror(web代码编辑器)+downloadjs(Client-side file downloading using JS and HTML5)+handsontable(web数据表)
   * backend---none
-* from Jieqiong Zhao--MetricsVis: A Visual Analytics System for Evaluating Employee(这个工作适合细读一下)
+* from Jieqiong Zhao--MetricsVis: A Visual Analytics System for Evaluating Employee
   * d3+react+redux
   * not mentioned about back-server
 
