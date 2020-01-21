@@ -1,15 +1,14 @@
 # VizRank: Data Visualization Guided by Machine Learning
 ## Link: https://link.springer.com/article/10.1007/s10618-005-0031-5
-## Publication:  Data Mining and Knowledge Discovery,Sepember 2006,volume 13,Isssue 2,pp 119-136.
-Published in: 
+## Publication:  
+Published in: Data Mining and Knowledge Discovery,Sepember 2006,volume 13,Isssue 2,pp 119-136.
 ## Author：
 Gregor Leban,Blaž ZupanGaj VidmarIvan Bratko.
 ## paper review:
 * Main picture:  
-![](https://github.com/guansLab/PaperReading/blob/master/Zhengyong_Ren/Screenshot%20from%202019-11-12%2010-17-37.png)
+![](https://github.com/guansLab/PaperReading/blob/master/Zhengyong_Ren/Screenshot%20from%202020-01-21%2009-47-33.png)
 * Research Background:  
-With the evolution of graphics hardware, high quality global illumination becomes available for real-time volume rendering.
-Compared to local illumination, global illumination can produce realistic shading effects which are closer to real world scenes, and has proven useful for enhancing volume data visualization to enable better depth and shape perception. 
+Data visualization plays a crucial role in identifying interesting patterns in exploratory data analysis. Its use is, however, made difficult by the large number of possible data projections showing different attribute subsets that must be evaluated by the data analyst. 
 
 * Problem to Solve:  
 Setting up optimal lighting could be a nontrivial task for average users. There were lighting design works for volume visualization but they did not consider global light transportation. 
