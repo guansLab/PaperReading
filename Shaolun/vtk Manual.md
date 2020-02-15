@@ -570,3 +570,538 @@ export default {
 };
 
 ```
+
+### /Common/DataModel/PolyData
+
+在该文档中，主要对verts，lines，polys和strips的处理和读取的方法进行了定义，方法中包含了记录每个cell的locations和types。关键代码如下：
+```js
+// verts
+    let nextCellPts = 0;
+    if (nVerts) {
+      model.verts.getCellSizes().forEach((numCellPts, index) => {
+        pLocs[index] = nextCellPts;
+        pTypes[index] =
+          numCellPts > 1 ? CellType.VTK_POLY_VERTEX : CellType.VTK_VERTEX;
+        nextCellPts += numCellPts + 1;
+      });
+
+      pLocs = pLocs.subarray(nVerts);
+      pTypes = pTypes.subarray(nVerts);
+    }
+
+    // lines
+    if (nLines) {
+      model.lines.getCellSizes().forEach((numCellPts, index) => {
+        pLocs[index] = nextCellPts;
+        pTypes[index] =
+          numCellPts > 2 ? CellType.VTK_POLY_LINE : CellType.VTK_LINE;
+        if (numCellPts === 1) {
+          console.log(
+            'Building VTK_LINE ',
+            index,
+            ' with only one point, but VTK_LINE needs at least two points. Check the input.'
+          );
+        }
+        nextCellPts += numCellPts + 1;
+      });
+
+      pLocs = pLocs.subarray(nLines);
+      pTypes = pTypes.subarray(nLines);
+    }
+
+    // polys
+    if (nPolys) {
+      model.polys.getCellSizes().forEach((numCellPts, index) => {
+        pLocs[index] = nextCellPts;
+        switch (numCellPts) {
+          case 3:
+            pTypes[index] = CellType.VTK_TRIANGLE;
+            break;
+          case 4:
+            pTypes[index] = CellType.VTK_QUAD;
+            break;
+          default:
+            pTypes[index] = CellType.VTK_POLYGON;
+            break;
+        }
+        if (numCellPts < 3) {
+          console.log(
+            'Building VTK_TRIANGLE ',
+            index,
+            ' with less than three points, but VTK_TRIANGLE needs at least three points. Check the input.'
+          );
+        }
+        nextCellPts += numCellPts + 1;
+      });
+
+      pLocs += pLocs.subarray(nPolys);
+      pTypes += pTypes.subarray(nPolys);
+    }
+
+    // strips
+    if (nStrips) {
+      pTypes.fill(CellType.VTK_TRIANGLE_STRIP, 0, nStrips);
+
+      model.strips.getCellSizes().forEach((numCellPts, index) => {
+        pLocs[index] = nextCellPts;
+        nextCellPts += numCellPts + 1;
+      });
+    }
+
+```
+### /Source/Common/Core/MatrixBuilder
+
+MatrixBuilder中，引入了一个基于WebGL的矩阵&向量计算的library，引入了{ vec3, mat4, glMatrix }三个暴露项。
+vec3:三个dimention的vector
+mat4：4x4的矩阵
+
+在文档中，定义了一个class：Transform，还有如下方法：
+* rotateFromDirections()
+* rotate()
+* rotateX()
+* rotateX()
+* rotateY()
+* rotateZ()
+* translate()
+* scale()
+* 
+
+### /Filters/Sources/ConeSource
+
+分析一个具有代表性的model Source的example，描述的是一个几何锥体的source。
+
+ConSource.js中，整个class中只包含了一个方法：`requestData()`
+```js
+  let dataset = outData[0];
+
+  const angle = (2 * Math.PI) / model.resolution;
+  const xbot = -model.height / 2.0;
+  const numberOfPoints = model.resolution + 1;
+  const cellArraySize = 4 * model.resolution + 1 + model.resolution;
+
+  // Points
+  let pointIdx = 0;
+  const points = new window[model.pointType](numberOfPoints * 3);
+
+  // Cells
+  let cellLocation = 0;
+  const polys = new Uint32Array(cellArraySize);
+
+  // Add summit point
+  points[0] = model.height / 2.0;
+  points[1] = 0.0;
+  points[2] = 0.0;
+
+  // Create bottom cell
+  if (model.capping) {
+    polys[cellLocation++] = model.resolution;
+  }
+
+  // Add all points
+  for (let i = 0; i < model.resolution; i++) {
+    pointIdx++;
+    points[pointIdx * 3 + 0] = xbot;
+    points[pointIdx * 3 + 1] = model.radius * Math.cos(i * angle);
+    points[pointIdx * 3 + 2] = model.radius * Math.sin(i * angle);
+
+    // Add points to bottom cell in reverse order
+    if (model.capping) {
+      polys[model.resolution - cellLocation++ + 1] = pointIdx;
+    }
+  }
+
+  // Add all triangle cells
+  for (let i = 0; i < model.resolution; i++) {
+    polys[cellLocation++] = 3;
+    polys[cellLocation++] = 0;
+    polys[cellLocation++] = i + 1;
+    polys[cellLocation++] = i + 2 > model.resolution ? 1 : i + 2;
+  }
+
+  // Apply tranformation to the points coordinates
+  vtkMatrixBuilder
+    .buildFromRadian()
+    .translate(...model.center)
+    .rotateFromDirections([1, 0, 0], model.direction)
+    .apply(points);
+
+  dataset = vtkPolyData.newInstance();
+  dataset.getPoints().setData(points, 3);
+  dataset.getPolys().setData(polys, 1);
+
+  // Update output
+  outData[0] = dataset;
+```
+
+下面，我们从vtk实例中看开发者是怎么设置vtkSource对象的API的：
+以vtkConeSource为例，在chrome中打印出来coneSource对象所有的方法，结果如下：
+```js
+isDeleted: ƒ ()
+modified: ƒ (otherMTime)
+onModified: ƒ (callback)
+getMTime: ƒ ()
+isA: ƒ (className)
+getClassName: ƒ ()
+set: ƒ ()
+get: ƒ ()
+getReferenceByName: ƒ (val)
+delete: ƒ ()
+getState: ƒ ()
+shallowCopy: ƒ (other)
+getHeight: ƒ ()
+getRadius: ƒ ()
+getResolution: ƒ ()
+getCapping: ƒ ()
+setHeight: ƒ setter(value)
+setRadius: ƒ setter(value)
+setResolution: ƒ setter(value)
+setCapping: ƒ setter(value)
+getCenter: ƒ ()
+getCenterByReference: ƒ ()
+getDirection: ƒ ()
+getDirectionByReference: ƒ ()
+setCenter: ƒ ()
+setCenterFrom: ƒ (otherArray)
+setDirection: ƒ ()
+setDirectionFrom: ƒ (otherArray)
+shouldUpdate: ƒ ()
+getOutputData: ƒ getOutputData()
+getOutputPort: ƒ getOutputPort()
+update: ƒ ()
+getNumberOfInputPorts: ƒ ()
+getNumberOfOutputPorts: ƒ ()
+getInputArrayToProcess: ƒ (inputPort)
+setInputArrayToProcess: ƒ (inputPort, arrayName, fieldAssociation)
+requestData: ƒ requestData(inData, outData)
+__proto__: Object
+```
+
+下面来逐一分析，前若干个方法来自于macro.js中被导出的函数algo的方法：
+```js
+isDeleted: ƒ ()
+modified: ƒ (otherMTime)
+onModified: ƒ (callback)
+getMTime: ƒ ()
+isA: ƒ (className)
+getClassName: ƒ ()
+set: ƒ ()
+get: ƒ ()
+getReferenceByName: ƒ (val)
+delete: ƒ ()
+getState: ƒ ()
+shallowCopy: ƒ (other)
+```
+这些是macro的全局方法，所有继承macro的source和model都会含有这些对象。
+
+接下来的十余个方法：
+```js
+getHeight: ƒ ()
+getRadius: ƒ ()
+getResolution: ƒ ()
+getCapping: ƒ ()
+setHeight: ƒ setter(value)
+setRadius: ƒ setter(value)
+setResolution: ƒ setter(value)
+setCapping: ƒ setter(value)
+getCenter: ƒ ()
+getCenterByReference: ƒ ()
+getDirection: ƒ ()
+getDirectionByReference: ƒ ()
+setCenter: ƒ ()
+setCenterFrom: ƒ (otherArray)
+setDirection: ƒ ()
+setDirectionFrom: ƒ (otherArray)
+```
+他们在coneSource中是被这样设置API的：
+```js
+macro.setGet(publicAPI, model, ['height', 'radius', 'resolution', 'capping']);
+```
+在macro.js中，定义了setGet方法：
+```js
+export function set(publicAPI, model, fields) {
+  fields.forEach((field) => {
+    if (typeof field === 'object') {
+      publicAPI[`set${capitalize(field.name)}`] = findSetter(field)(
+        publicAPI,
+        model
+      );
+    } else {
+      publicAPI[`set${capitalize(field)}`] = findSetter(field)(
+        publicAPI,
+        model
+      );
+    }
+  });
+}
+
+// ----------------------------------------------------------------------------
+// set/get XXX: add both setters and getters
+// ----------------------------------------------------------------------------
+
+export function setGet(publicAPI, model, fieldNames) {
+  get(publicAPI, model, fieldNames);
+  set(publicAPI, model, fieldNames);
+}
+```
+在coneSource.js中调用setGet方法时传入了后面的属性名：`['height', 'radius', 'resolution', 'capping']`,这些时用来匹配setGet方法的参数，并且生成SetXXX和getXXX API的方法。
+
+直到最后一个方法：`requestData` 才是真正的coneSource中定义的获取数据的方法：
+```js
+  function requestData(inData, outData) {
+    if (model.deleted) {
+      return;
+    }
+
+    let dataset = outData[0];
+
+    const angle = (2 * Math.PI) / model.resolution;
+    const xbot = -model.height / 2.0;
+    const numberOfPoints = model.resolution + 1;
+    const cellArraySize = 4 * model.resolution + 1 + model.resolution;
+
+    // Points
+    let pointIdx = 0;
+    const points = new window[model.pointType](numberOfPoints * 3);
+
+    // Cells
+    let cellLocation = 0;
+    const polys = new Uint32Array(cellArraySize);
+
+    // Add summit point
+    points[0] = model.height / 2.0;
+    points[1] = 0.0;
+    points[2] = 0.0;
+
+    // Create bottom cell
+    if (model.capping) {
+      polys[cellLocation++] = model.resolution;
+    }
+
+    // Add all points
+    for (let i = 0; i < model.resolution; i++) {
+      pointIdx++;
+      points[pointIdx * 3 + 0] = xbot;
+      points[pointIdx * 3 + 1] = model.radius * Math.cos(i * angle);
+      points[pointIdx * 3 + 2] = model.radius * Math.sin(i * angle);
+
+      // Add points to bottom cell in reverse order
+      if (model.capping) {
+        polys[model.resolution - cellLocation++ + 1] = pointIdx;
+      }
+    }
+
+    // Add all triangle cells
+    for (let i = 0; i < model.resolution; i++) {
+      polys[cellLocation++] = 3;
+      polys[cellLocation++] = 0;
+      polys[cellLocation++] = i + 1;
+      polys[cellLocation++] = i + 2 > model.resolution ? 1 : i + 2;
+    }
+
+    // Apply tranformation to the points coordinates
+    vtkMatrixBuilder
+      .buildFromRadian()
+      .translate(...model.center)
+      .rotateFromDirections([1, 0, 0], model.direction)
+      .apply(points);
+
+    dataset = vtkPolyData.newInstance();
+    dataset.getPoints().setData(points, 3);
+    dataset.getPolys().setData(polys, 1);
+
+    // Update output
+    outData[0] = dataset;
+  }
+```
+
+## actor.getProperty()包含的方法
+
+```js
+Lighting: ƒ ter(value)
+Interpolation: ƒ ter(value)
+Ambient: ƒ ter(value)
+Diffuse: ƒ ter(value)
+Specular: ƒ ter(value)
+SpecularPower: ƒ ter(value)
+Opacity: ƒ ter(value)
+EdgeVisibility: ƒ ter(value)
+LineWidth: ƒ ter(value)
+PointSize: ƒ ter(value)
+BackfaceCulling: ƒ ter(value)
+FrontfaceCulling: ƒ ter(value)
+Representation: ƒ ter(value)
+AmbientColor: ƒ ()
+AmbientColorFrom: ƒ (otherArray)
+SpecularColor: ƒ ()
+SpecularColorFrom: ƒ (otherArray)
+DiffuseColor: ƒ ()
+DiffuseColorFrom: ƒ (otherArray)
+EdgeColor: ƒ ()
+EdgeColorFrom: ƒ (otherArray)
+Color: ƒ (r, g, b)addShaderVariable: ƒ ()
+InterpolationToFlat: ƒ ()
+InterpolationToGouraud: ƒ ()
+InterpolationToPhong: ƒ ()
+RepresentationToWireframe: ƒ ()
+RepresentationToSurface: ƒ ()
+RepresentationToPoints: ƒ ()
+```
+转译后：
+```js
+设置照明度：ƒter（值）
+设置插值：ƒter（值）
+设置 环境：ƒter（值）
+设置 扩散度：ƒter（值）
+设置 镜面反射：ƒter（值）
+设置 镜面反射功率：ƒter（值）
+设置 不透明度：ƒter（值）
+设置 边缘可见性：ƒter（值）
+设置 线宽：ƒter（值）
+设置 点大小：ƒter（值）
+设置 背面剔除：ƒter（值）
+设置 前端剔除：ƒter（值）
+设置 表示形式：ƒter（值）
+设置 环境颜色：ƒ（）
+设置 环境颜色自：ƒ（otherArray）
+设置 镜面颜色：ƒ（）
+设置 镜面反射颜色自：ƒ（otherArray）
+设置 漫反射颜色：ƒ（）
+设置 漫反射颜色自：ƒ（otherArray）
+设置 边缘颜色：ƒ（）
+设置 边缘颜色来自：ƒ（otherArray）
+设置 颜色：ƒ（r，g，b）addShaderVariable：ƒ（）
+设置 插值到单位：ƒ（）
+设置 插值到Gouraud：ƒ（）
+设置 插值至Phong：ƒ（）
+设置 表示到线框：ƒ（）
+设置 表面表示：ƒ（）
+设置 表示点：ƒ（）
+```
+
+## 通过js内部函数实现vtkModel的动画机制
+```js
+ function animate(){
+
+      requestAnimationFrame(animate)
+
+      render()
+
+    }
+
+    function render(){
+      actor.rotateY(3)
+
+      rendererWindow.render()
+    }
+
+    animate()
+```
+
+定义一个自调用函数animate，在内部重复invoke animate()本身，即可实现动画的效果。
+在render()函数中，设置每一帧的变化系数，在调用rendererWindow.render()重新渲染。
+
+## 通过sourceCode来理解Calculator的机制
+以Example1为例：
+```js
+ const coneSource = vtkConeSource.newInstance({ height: 1.0,resolution: 8 });
+      const filter = vtkCalculator.newInstance();
+
+      console.log('filter', filter.getFormula().getArrays());
+
+
+      filter.setInputConnection(coneSource.getOutputPort());
+      filter.setFormula({
+        getArrays: inputDataSets => ({
+          input: [],
+          output: [
+            { location: FieldDataTypes.CELL, name: 'Random', dataType: 'Float32Array', attribute: AttributeTypes.SCALARS },
+          ],
+        }),
+        evaluate: (arraysIn, arraysOut) => {
+          //getData()
+          //filter.getOutputData().getCellData().getScalars().getData()
+          console.log(arraysOut[0].getData());
+            
+          //const [scalars] 最后返回的scalars是一个Float32Array对象
+          //const scalars 返回的是一个以上述元素为元素的一个数组
+          //
+          //下面的一行code等价于const [a] = [filter.getOutputData().getCellData().getScalars()].map(d=>d.getData())
+          //即arrayOut等价于[filter.getOutputData().getCellData().getScalars()]
+          //可能是只有一个model的关系，如果是多个model的话可能会返回多个
+          const [scalars] = arraysOut.map(d => d.getData());
+          for (let i = 0; i < scalars.length; i++) {
+            scalars[i] = Math.random();
+          }
+          console.log(arraysOut[0].getData());
+        },
+      });
+
+      const mapper = vtkMapper.newInstance();
+      mapper.setInputConnection(filter.getOutputPort());
+
+      // ----------------------------------------------------------------------------
+      // Console Zone
+      // console.log('cone :', filter);
+      // console.log('cone', filter.getOutputPort()() );
+      // ----------------------------------------------------------------------------
+
+      const actor = vtkActor.newInstance();
+      actor.setMapper(mapper);
+
+      renderer.addActor(actor);
+      renderer.resetCamera();
+      // renderWindow.setContainer(querySelector('.container'))
+      renderWindow.render();
+```
+根据对`coneSource`和`filter`的getOutputPort结果来看，Calculator对cell的重构起到了很关键的作用，主要是通过下面的路径来实现的：
+`filter.getOutputData().getCellData().getScalars()`中有一个方法`filter.getOutputData().getCellData().getScalars().getData()`,通过对数组内的值的重新赋值，来达到对每个面的yanse的重新定义的效果。
+
+从code最上面引用的:
+```js
+import { AttributeTypes } from 'vtk.js/Sources/Common/DataModel/DataSetAttributes/Constants';
+import { FieldDataTypes } from 'vtk.js/Sources/Common/DataModel/DataSet/Constants';
+```
+来看，这些引入的对象所包含的键值对 与 `filter.getOutputData().getCellData()`所包含的属性值几乎是一样的，意味着通过对本例的模仿，可以任意修改对象中的属性，来实现不同的效果。
+
+## 目前与源代码契合度最高的Example-ImageStreamline
+
+调用了macro.js中newInstance的方法，and macro.obj() & macro.algo()
+
+### imageMarchingCube-网格生成算法
+很多连续算法在最后提取等值面的时候都会采用marching cube或其改进版本，可以说是很多算法的最后一步
+等值面，很简单的理解，就是一个点电荷在一个真空无干扰场中形成的一个球形区域表面，这个表面的value场强就是一个等值面。
+
+因为六面体有8个顶点，8个顶点的状态就有2^8 = 256中分布状态，但是由于六面体是有对称性的，我们通过对称性，可以简化这些状态至15种状态 
+
+* Marching Cube 算法流程
+将原始数据经过预处理之后,读入特定的数组中或者八叉树。
+从网格数据体中提取一个六面体,成为当前六面体"同时获取该六面体的所有信息,例如8个顶点的值,坐标位置等。
+将当前六面体8个顶点的函数值与给定等值面值C进行比较,得到该六面体的状态表。
+根据当前六面体的状态表索引,找出与等值面相交的六面体棱边,并采用线性插值的方法,计算出各个交点的位置坐标。
+利用中心差分法,求出当前六面体8个顶点的法向量,在采用线性插值的方法,得到三角面片各个顶点的法向。
+根据各个三角面片顶点的坐标,顶点法向量进行三角面的连接。
+
+* 系统诠释Marching cube
+在三维规则数据场中构造等值面是计算机视觉也是VTK当中的一个重要的问题，Marching Cubes方法就是解决这个问题的一个成熟的被广泛使用的方法，简称MC方法。VTK当中的vtkMarchingCubes就是对这个方法的代码实现。
+
+下面结合唐泽圣的《三维数据场可视化》和vtk的《The Design and Implementation of an Object-OrientedToolkit for 3D Graphics and Visualization》两本书的内容介绍一下MC方法。
+
+在MC方法中, 假定原始数据是离散的三维空间规则数据场。用于医疗诊断的断层扫描仪( CT ) 及核磁共振仪( MRI ) 等产生的图象均属于这一类型。为了在这一数据场中构造等值面, 用户应先给出所求等值面的值, 设为C0。MC 方法首先找出该等值面经过的体元的位置, 求出该体元内的等值面并计算出相关参数, 以便由常用的图形软件包或图形硬件提供的面绘制功能绘制出等值面。由于这一方法是逐个体元依次处理的, 因此被称为Marching Cubes方法。
+
+vtk原文档中描述：
+vtkMarchingCubes is a filter that takes as input a volume (e.g., 3D structured point set) and generateson output one or more isosurfaces. One or more contour values must be specifiedto generate the isosurfaces. Alternatively, you can specify a min/max scalarrange and the number of contours to generate a series of evenly spaced contourvalues.
+
+即：vtkMarchingCubes是一个过滤器，该过滤器接受一个体数据的输入（三维规则的点集），输出一个或者多个等值面。使用它，必须给等值面赋值。或者，你可以设定的一个scalar的范围和等值面的间隔来决定这个范围内的一系列的等值面的值。
+
+几个重要的方法是（using tcl）：
+
+void SetValue (int i, double value) 设置第i个等值面的值为value
+
+void SetNumberOfContours (int number) 设置等值面的个数
+
+## implicit boolean
+先看一下官方的API解释：
+>vtkImplicitBoolean enables boolean combinations of implicit functions like Plane, Sphere, Cylinder, and Box. Operations include union, intersection, and difference. Multiple implicit functions can be specified (all combined with the same operation).
+
+即：vtkImplicitBoolean enables 隐式函数（如Plane，Sphere，Cylinder和Box）的布尔组合。 操作包括并集，相交和差。 可以指定多个隐式函数（全部与同一操作组合）。
+
