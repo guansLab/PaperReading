@@ -1,4 +1,4 @@
-# VizRank: Two-Stream Convolutional Networks for Action Recognition in Videos
+# Two-Stream Convolutional Networks for Action Recognition in Videos
 ## Link: https://papers.nips.cc/paper/5353-two-stream-convolutional-networks-for-action-recognition-in-videos.pdf
 ## Author：
 Karen Simonyan Andrew Zisserman
