@@ -1,4 +1,4 @@
-#Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields ∗
+# Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields ∗
 ## Link: https://arxiv.org/pdf/1611.08050.pdf
 ## Publication:  
 A thesis submitted to Kent State University in partial fulfilment of the requirements for the degree of Master of Science.
