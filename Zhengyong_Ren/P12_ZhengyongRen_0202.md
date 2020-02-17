@@ -17,9 +17,11 @@ A privacy-preserving surveillance video system where the privacy information
 can be retrieved in a secure and reliable manner.
 * Major Contribution:  
 1, Proposes a detailed framework of storing privacy information in surveillance video.
-2, A perceptual-model-based compressed domain video watermarking scheme is proposed to deal with the huge
+
+2,  A perceptual-model-based compressed domain video watermarking scheme is proposed to deal with the huge
 payload problem in the proposed surveillance system.
-3,This system can monitor the unauthorized persons in a restricted environment, protect the privacy of the
+
+3, This system can monitor the unauthorized persons in a restricted environment, protect the privacy of the
 authorized persons but, at the same time, allow the privacy information to be revealed in a secure and reliable way. 
 * limited  
 The bit-rate given the amount of privacy information and perceptual distortion requirement is also large.
