@@ -16,12 +16,10 @@ of challenges.
 * Key Design and Algorithm Proposed:  
 An approach to efficiently detect the 2D pose of multiple people in an image.
 * Major Contribution:  
-1,  The approach uses a nonparametric representation, which we refer to as Part Affinity
+ 1,The approach uses a nonparametric representation, which we refer to as Part Affinity
 Fields (PAFs), to learn to associate body parts with individuals in the image.
-
-2,  The architecture encodes global context, allowing a greedy bottom-up parsing step that maintains high accuracy while achieving realtime performance, irrespective of the number of people in the image.
-
-3,  The architecture is designed to jointly learn part locations and their association via two branches of the same sequential
+ 2,The architecture encodes global context, allowing a greedy bottom-up parsing step that maintains high accuracy while achieving realtime performance, irrespective of the number of people in the image.
+ 3,The architecture is designed to jointly learn part locations and their association via two branches of the same sequential
 prediction process. 
 * limited  
 Our photo collections just tend to capture moments of personal significance.
