@@ -17,9 +17,9 @@ A key mechanism of privacy-aware smart video surveillance is anonymization of vi
 They employ a background estimator for learning the longterm background of the scene as well as for detecting
 foreground objects, i.e., our regions of interest (RoI) for anonymization. 
 * Major Contribution:  
-1, Employ a background estimator for learning the longterm background of the scene as well as for detecting foreground objects.
+1, Employ a background estimator for learning the longterm background of the scene as well as for detecting foreground objects.  
 2, Apply obfuscating image filters or pixel operations, and finally put the anonymized RoIs onto the long-term background model
-of the scene.  
+of the scene.    
 3,Investigates the effects of each anonymization technique.
 * Something you don’t understand:  
 Measuring Utility and Privacy
