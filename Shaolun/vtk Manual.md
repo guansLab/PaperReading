@@ -1105,3 +1105,235 @@ void SetNumberOfContours (int number) 设置等值面的个数
 
 即：vtkImplicitBoolean enables 隐式函数（如Plane，Sphere，Cylinder和Box）的布尔组合。 操作包括并集，相交和差。 可以指定多个隐式函数（全部与同一操作组合）。
 
+vtkjs数据格式汇总
+---
+Loaders included:
+* ZipHttpReader
+* HttpDataSetReader=>.vti
+* HttpSceneLoader
+* STLReader
+* PolyDataReader
+* ElevationReader
+* JSONNucleoReader
+* OBJReader
+* PDBReader
+
+sampleData：
+* draco
+* mha
+* nrrd
+* obj-mtl
+* pdb
+* vti
+* vtkjs
+* vtp
+
+vtkjs源代码loader目录
+---
+IO/Core=>
+* DataAccessHelper
+* HttpDataSetReader
+* HttpSceneLoader
+* ImageStream
+* ResourceLoader
+* Serializer
+* ZipMultiDataSetReader
+* ZipMultiDataSetWriter
+
+IO/Geometry=>
+* DracoReader
+* STLReader
+  
+IO/Legacy=>
+* LegacyAsciiParser
+* PolyDataReader
+
+IO/Misc=>
+* ElevationReader
+* ITKImageReader
+* ITKPolyDataReader
+* JSONNucleoReader
+* JSONReader
+* MTLReader
+* OBJReader
+* PDBRReader
+* SkyboxReader
+
+IO/XML=>
+* XMLImageDataReader
+* XMLImageDataWriter
+* XMLPolyDataReader
+* XMLPolyDataWriter
+* XMLReader
+* XMLWriter
+
+
+
+threejs Loader
+---
+* BasisTextureLoader
+* DRACOLoader
+* GLTFLoader
+* MMDLoader
+* MTLLoader
+* OBJLoader
+* OBJLoader2
+* PCDLoader
+* PDBLoader
+* PRWMLoader
+* SVGLoader
+* TGALoader
+...
+
+webGL Loader
+---
+"webgl_loader_3ds",
+"webgl_loader_3mf",
+"webgl_loader_3mf_materials",
+"webgl_loader_amf",
+"webgl_loader_assimp",
+"webgl_loader_bvh",
+"webgl_loader_collada",
+"webgl_loader_collada_kinematics",
+"webgl_loader_collada_skinning",
+"webgl_loader_draco",
+"webgl_loader_fbx",
+"webgl_loader_fbx_nurbs",
+"webgl_loader_gcode",
+"webgl_loader_gltf",
+"webgl_loader_gltf_extensions",
+"webgl_loader_imagebitmap",
+"webgl_loader_json_claraio",
+"webgl_loader_kmz",
+"webgl_loader_ldraw",
+"webgl_loader_lwo",
+"webgl_loader_md2",
+"webgl_loader_md2_control",
+"webgl_loader_mmd",
+"webgl_loader_mmd_pose",
+"webgl_loader_mmd_audio",
+"webgl_loader_nrrd",
+"webgl_loader_obj",
+"webgl_loader_obj_mtl",
+"webgl_loader_obj2",
+"webgl_loader_obj2_options",
+"webgl_loader_pcd",
+"webgl_loader_pdb",
+"webgl_loader_ply",
+"webgl_loader_prwm",
+"webgl_loader_stl",
+"webgl_loader_svg",
+"webgl_loader_texture_basis",
+"webgl_loader_texture_dds",
+"webgl_loader_texture_exr",
+"webgl_loader_texture_hdr",
+"webgl_loader_texture_ktx",
+"webgl_loader_texture_pvrtc",
+"webgl_loader_texture_rgbm",
+"webgl_loader_texture_tga",
+"webgl_loader_ttf",
+"webgl_loader_vrm",
+"webgl_loader_vrml",
+"webgl_loader_vtk"
+
+vtk的扩展格式
+---
+vtk数据和paraview数据有很多的子格式，这里要对vtk的数据格式和特点做一个了解。所有格式的共同点是：
+* 使用右手笛卡尔坐标系。
+* 坐标点和像元（=点之间的区域）都在文件中定义，因此可以将数据值分配给点或像元。
+* 数据值可以是任意维度（标量，向量，张量）的整数或浮点数（C变量类型：int32或float）
+* ASCII浮点数写有小数点（不是逗号！）；也可以使用科学计数法（例如“ 3.14E-3”）。二进制值以“ C样式”编写
+* 可以将任意数量的数据集分配给点或单元格，但是由于文件只能包含一个坐标网格，因此每个数据集必须具有每个坐标点或网格单元格的数据值。不同网格上的数据集必须写入不同的文件中。
+* **对于新的XML文件类型，情况并非完全如此。在这里，每个文件可能包含“一个或多个Piece元素，每个元素描述数据集的一部分”。每个片段都有其自己的关联点和单元格的定义。**
+* 通过为文件名赋予连续的数字（在名称的末尾，在扩展名之前），可以实现动画效果，例如“ file001.vtk”，“ file002.vtk”等。然后可以将这些文件作为动画播放。
+
+### Old ("Legacy") and New (XML) Format
+There are two generations of file types：
+* 旧的* .vtk文件格式使用ASCII标题行分隔数据部分。 数据本身可以是ASCII或二进制.
+* 基于XML的新格式（扩展名：取决于；例如* .vtp（表示多边形数据），*.vtu（表示非结构化网格））将数据部分用XML标记括起来。 数据也可以存储为ASCII或二进制，但是要获取有效的XML文件，二进制数据必须经过base64编码。 此外，可以使用zlib压缩二进制数据，因此即使压缩数据是base64编码的，文件大小也比原始二进制格式小。
+
+### Convert of data format
+如果需要其他文件格式，请使用VTK工具包进行转换。 例如 编写一个Tcl脚本。 然后，您可以一步将简单的ASCII * .vtk文件转换为功能齐全的二进制压缩XML文件。
+
+jordain提供了一种convert的回答，还没有没证实，在这里记录一下：
+```s
+$ npm install -g kitware/vtk-js
+$ vtkDataConverter 
+
+  Usage: vtkDataConverter [options]
+
+  Options:
+
+    -h, --help                output usage information
+    -V, --version             output the version number
+    -i, --input [file.vtk]    Input data file to convert
+    -o, --output [directory]  Destination directory
+
+    -m, --merge               Merge dataset
+    -e, --extract-surface     Extract surface
+
+    --paraview [path]         Provide the ParaView root path to use
+    --sample-data [path]      Convert sample data from ParaViewData
+```
+
+对FullScreenRenderer的源码解析
+---
+vtkjs推荐的默认renderer是FullScreenRenderer，
+然而，如果需求是一个单页面应用的话，则需要把render注入到一个DOM元素中
+但是，拥有两个问题：
+1. 注入后 的model明显失真
+2. DOM 类的render需要的rendering模块和interacting模块非常多，猜测fullScreen类的renderer是将这些rendering模块都封装在其中
+
+所以，想要搞清楚两个问题，需要从源代码入手：
+* 从FullScreenRenderWindow/index.js的引入模块来看：
+```js
+import macro from 'vtk.js/Sources/macro';
+import vtkOpenGLRenderWindow from 'vtk.js/Sources/Rendering/OpenGL/RenderWindow';
+import vtkRenderer from 'vtk.js/Sources/Rendering/Core/Renderer';
+import vtkRenderWindow from 'vtk.js/Sources/Rendering/Core/RenderWindow';
+import vtkRenderWindowInteractor from 'vtk.js/Sources/Rendering/Core/RenderWindowInteractor';
+import vtkInteractorStyleTrackballCamera from 'vtk.js/Sources/Interaction/Style/InteractorStyleTrackballCamera';
+```
+  我们的猜测是很有可能的。
+在自己封装了五个renderer和controler之后，发现
+渲染出来的图像是很模糊的，例如：coneSource
+所以，试了试将fullScreenRenderer的源代改变了一下再封装了一个文件
+引入后发现，效果还不错
+命名为`FullDOMRenderer`
+所以就暂时用这个吧，
+但愿未来一切顺利！
+
+
+与react-grid-layout的结合
+---
+昨晚实现了在React-grid-layout中成功的实现了vtk模块的响应式开发
+但是缺点是在根组件<App/>中mount vtk模块，即vtk组件和根组件融合了，没有父子关系
+
+原因是在vtk的div生成和渲染环节，先`document.querySelector('.react-grid-layout')`，然后再`appendChild(container)`,所以只能再App根组件层实现加载，因为如果在子组件中无法获取到 grid 的DOM
+但是后期试了一下，在vtk组件的render()函数中返回了一个div#dom-div,这样便可以在本组件中获取到该div，也可以渲染到div中。
+
+在App根组件中，是这样引入的
+```js
+<ResponsiveGridLayout >
+    <div key="4" data-grid={{
+        x: 0,
+        y: 0, // puts it at the bottom
+        w: 4,
+        h: 3,
+        i: new Date().getTime().toString(),
+        type: 'bar'
+        }}><DOM/></div>
+</ResponsiveGridLayout>
+```
+如上方的代码所示，`<ResponsiveGridLayout >`的子节点，最好是div节点，因为如果是组件<DOM/>的话，不可以触发响应式的布局。
+在div中设置一下grid所需要的参数。
+如此一来，既实现了grid的响应式布局，又实现了App根组件的父子层级结构，岂不美哉。
+
+react-bootstrap
+---
+现在需要解决渲染react grid layout的问题，怎么给模块化的组件套上一层“窗口”
+于是我去查bootstrap，发现其中的modal似乎可以解决我的问题
+现在先介绍一下怎么引用和使用`react-bootstrap`
+1. `npm install react-bootstrap bootstrap jquery bootstrap`
+2. `import 'bootstrap/dist/css/bootstrap.min.css';`//index.js
+3. `import { Button } from 'react-bootstrap';`//目标组件
