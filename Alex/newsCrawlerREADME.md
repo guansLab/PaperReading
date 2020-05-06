@@ -1,8 +1,8 @@
-This is a README.md to introduce how to dump news data from alex@131.123.39.105<br/>
-last update: 6th May, 2020
+This is README.md to introduce how to dump news data from alex@131.123.39.105<br/>
+last update: 6th May, 2020<br/>
 
 ### Crawler Statement 
-News on foxnews frontpage website has been collected automatically 4 times a day at 3am, 9am, 3pm and 9pm. 
+News on foxnews frontpage website has been collected automatically 4 times a day at 3am, 9am, 3pm and 9pm. <br/>
 
 ### Connecting to server
 > ssh alex@131.123.39.105 <br/>
@@ -10,35 +10,31 @@ password: alex@guan'slab
 
 ### Dump data from mysql
 
-1. News data form mysql could be dumped by software Navicat, and Navicat configuration is at below:
-> General:
-  Connection name: foxnews
-  Host name/IP address: localhost
-  port: 3306
-  Username: root
-  Password: 111111
+1. Contact Alex to get news data by email: suzhaoyuan555@gmail.com<br/>
+
+2. News data form mysql could be dumped by software Navicat, and Navicat configuration is at below:
+> General:<br/>
+  Connection name: foxnews<br/>
+  Host name/IP address: localhost<br/>
+  port: 3306<br/>
+  Username: root<br/>
+  Password: 111111<br/>
   
-> SSH:
-  Host name/IP address: alex@131.123.39.105
-  Port: 22
-  Username: alex
-  Password: alex@guan'slab
+> SSH:<br/>
+  Host name/IP address: alex@131.123.39.105<br/>
+  Port: 22<br/>
+  Username: alex<br/>
+  Password: alex@guan'slab<br/>
   
 
-2. news data also could be dumped by mysql command.
-> mysql -uroot -p 
+3. news data also could be dumped by mysql command.<br/>
+> mysql -uroot -p <br/>
 password: 111111
 
-> show databases; 
-use news; 
-select * from foxnews into outfile "/var/lib/mysql-files/foxnews.csv" 
-
-Then using scp command move "foxnews.csv" to personal computer.
-
-
-
-
-
+> show databases; <br/>
+use news; <br/>
+select * from foxnews into outfile "/var/lib/mysql-files/foxnews.csv" <br/>
+Then using ‘scp’ command move "foxnews.csv" to aim location.
 
 there are 241 news in table foxnews at 23:00
 
