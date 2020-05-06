@@ -1,5 +1,4 @@
 This is README.md to introduce how to dump news data from alex@131.123.39.105<br/>
-last update: 6th May, 2020<br/>
 
 ### Crawler Statement 
 News on foxnews frontpage website has been collected automatically 4 times a day at 3am, 9am, 3pm and 9pm. <br/>
@@ -35,9 +34,10 @@ password: 111111
 > show databases; <br/>
 use news; <br/>
 select * from foxnews into outfile "/var/lib/mysql-files/foxnews.csv" <br/>
-Then using ‘scp’ command move "foxnews.csv" to aim location.
+Then using ‘scp’ command move "foxnews.csv" to aim location.<br/><br/><br/>
 
-there are 241 news in table foxnews at 23:00
+last update: 6th May, 2020<br/>
+There are 241 news in table foxnews at 23:00, 5th May, 2020.
 
 
 
