@@ -4,10 +4,6 @@ last update: 6th May, 2020<br/>
 ### Crawler Statement 
 News on foxnews frontpage website has been collected automatically 4 times a day at 3am, 9am, 3pm and 9pm. <br/>
 
-### Connecting to server
-> ssh alex@131.123.39.105 <br/>
-password: alex@guan'slab
-
 ### Dump data from mysql
 
 1. Contact Alex to get news data by email: suzhaoyuan555@gmail.com<br/>
@@ -28,6 +24,11 @@ password: alex@guan'slab
   
 
 3. news data also could be dumped by mysql command.<br/>
+Connecting to server<br/>
+> ssh alex@131.123.39.105 <br/>
+password: alex@guan'slab
+
+Connecting to mysql<br/>
 > mysql -uroot -p <br/>
 password: 111111
 
