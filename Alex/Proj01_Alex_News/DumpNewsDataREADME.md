@@ -40,5 +40,5 @@ Then using ‘scp’ command move "foxnews.csv" to aim location.<br/><br/><br/>
 last update: 6th May, 2020<br/>
 There are 241 news in table foxnews at 10pm, 5th May, 2020.
 There are 258 news in table foxnews at 4am, 6th May, 2020.
-
+There are 295 news in table foxnews at 10am, 6th May, 2020.
 
