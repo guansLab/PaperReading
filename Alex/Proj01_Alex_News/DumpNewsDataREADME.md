@@ -1,7 +1,8 @@
 This is DumpNewsDataREADME.md to introduce how to dump news data from alex@131.123.39.105<br/>
 
 ### Crawler Statement 
-News on foxnews frontpage website has been collected automatically 4 times a day at 3am, 9am, 3pm and 9pm. <br/>
+News has been collected from "Foxnews".<br/>
+News has been collected automatically 4 times a day at 3am, 9am, 3pm and 9pm. <br/>
 
 ### Dump data from mysql
 
