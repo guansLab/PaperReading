@@ -27,7 +27,7 @@ Connecting to server<br/>
 > ssh alex@131.123.39.105 <br/>
 password: alex@guan'slab
 
-Connecting to mysql<br/>
+&nbsp;&nbsp;Connecting to mysql<br/>
 > mysql -uroot -p <br/>
 password: 111111
 
